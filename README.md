@@ -1,4 +1,4 @@
-Openapi
+OpenAPI
 ==========
 
 The original (https://github.com/ant31/openapi - the basis of the current Ruby Gem @ rubygems.org) was somewhat buggy, and had not been updated for several years, so I forked it and fixed at least some of the bugs - enough to make it do what I needed it to do!
