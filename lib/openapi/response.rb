@@ -13,8 +13,9 @@ module OpenAPI
     end
 
     def self.wrap(response)
+      require 'json'
       OpenAPI.logger.debug(response.body)
-      if !response.to_hash["content-type"].find{|a| a.match /.*json.*/}
+      if !response.to_hash["content-type"].find{|a| a.match(/.*json.*/)}
         output = response.body
       else
         begin

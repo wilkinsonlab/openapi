@@ -1,7 +1,7 @@
 require 'net/https'
 require 'time'
 require 'base64'
-
+require 'json'
 require File.join(File.dirname(__FILE__), 'response')
 
 module OpenAPI
@@ -15,7 +15,7 @@ module OpenAPI
 
   module ClassMethods
     attr_accessor :application_key, :application_secret, :max_retry,
-    :logger, :request_timeout, :client_id, :site, :auth_token, :api_methods, :use_ssl, :cache
+    :logger, :request_timeout, :client_id, :site, :auth_token, :api_methods, :use_ssl, :cache, :openapi_json
 
     def api_methods
       @api_methods ||= []
@@ -44,7 +44,9 @@ module OpenAPI
     end
 
     def build_path(path, params=nil)
-      uri = URI("/#{path}")
+      path.gsub(/^\//, '')
+      site = self.site.gsub(/\/$/, '')
+      uri = URI("#{site}/#{path}")
       if params != nil
         uri.query = URI.encode_www_form(params)
       end
@@ -111,7 +113,7 @@ module OpenAPI
       @request_timeout || 5.0
     end
 
-   def logger
+    def logger
       @logger ||= OpenAPI.logger
     end
 
@@ -134,6 +136,7 @@ module OpenAPI
       @site = options[:site] || OpenAPI.site
       @request_timeout = options[:request_timeout] || OpenAPI.request_timeout || 5
       @max_retry = options[:max_retry] || OpenAPI.max_retry || 2
+      @openapi_json = options[:openapi_json] || OpenAPI.openapi_json || {}
     end
   end
 end

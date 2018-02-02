@@ -18,3 +18,4 @@ OpenAPI.logger.level = 1
 OpenAPI.request_timeout = 5 # default
 OpenAPI.max_retry=2
 OpenAPI.cache = nil
+OpenAPI.json = {}
