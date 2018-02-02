@@ -14,6 +14,8 @@ Good luck!
 
 
 
+    require 'openapi'
+    
     api = OpenAPI::Client.new(:site => "http://petstore.swagger.io/v2/", :request_timeout => 60 )
     
     response = api.do_request('get', 'pet/1', params: {}, body: nil, headers: {}, options: {:skip_auth => true})
